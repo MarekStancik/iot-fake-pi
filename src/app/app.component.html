@@ -1,7 +1,18 @@
-<div>
-  Halo
-  <mat-slider aria-label="unit(s)"></mat-slider>
-  <h2>Welcome</h2>
-  <h3>To the hospital</h3>
-  <button mat-button>Lets party</button>
+<div class="content-wrapper">
+  <div class="content-box">
+    <h1>Welcome Citizen</h1>
+    <h2>I am fake raspberry 3.14</h2>
+    <h2>Use me {{smiley$ | async}}</h2>
+    <div>
+      <mat-icon class="material-icons-outlined">water_drop</mat-icon>
+      <mat-slider thumbLabel aria-label="unit(s)"></mat-slider>
+      <span></span>
+    </div>
+    <div>
+      <mat-icon class="material-icons-outlined">thermostat</mat-icon>
+      <mat-slider min="-15" max="60" thumbLabel aria-label="unit(s)"></mat-slider>
+      <span></span>
+    </div>
+    <button color="primary" mat-button>Let's party</button>
+  </div>
 </div>
