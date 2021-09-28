@@ -1,7 +1,18 @@
-<div>
-  Halo
-  <mat-slider aria-label="unit(s)"></mat-slider>
-  <h2>Welcome</h2>
-  <h3>To the hospital</h3>
-  <button mat-button>Lets party</button>
+<div class="content-wrapper">
+  <div class="content-box">
+    <h1>Welcome Citizen</h1>
+    <h2>I am fake raspberry 3.14</h2>
+    <h2>Use me {{smiley$ | async}}</h2>
+    <div>
+      <mat-icon class="material-icons-outlined">water_drop</mat-icon>
+      <mat-slider (input)="onHumidityChange($event)" [displayWith]="displayHumidity" [ngModel]="humidity" [max]="maxHumidity" thumbLabel aria-label="unit(s)"></mat-slider>
+    </div>
+    <span>{{humidityStatus$ | async}}</span>
+    <div>
+      <mat-icon class="material-icons-outlined">thermostat</mat-icon>
+      <mat-slider (input)="onTempChange($event)" [displayWith]="displayTemperature" [ngModel]="temperature" [min]="minTemperature" [max]="maxTemperature" thumbLabel aria-label="unit(s)"></mat-slider>
+    </div>
+    <span>{{temperatureStatus$ | async}}</span>
+    <button (click)="submit()" color="primary" mat-button>Let's party</button>
+  </div>
 </div>
