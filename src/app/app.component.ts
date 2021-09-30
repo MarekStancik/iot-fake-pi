@@ -1,27 +1,8 @@
+import { HttpClient } from "@angular/common/http";
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Apollo, gql } from "apollo-angular";
 import { BehaviorSubject, Observable, timer } from "rxjs";
 import { map, take, withLatestFrom } from "rxjs/operators";
-
-const CREATE_TEMPERATURE_DATA = gql`
-  mutation CreateTemperatureEntry($payload: CreateTemperatureInput!) {
-    createTemperatureEntry(payload: $payload) {
-      measurementTime,
-      sensorId,
-      value
-    }
-  }
-`;
-
-const CREATE_HUMIDITY_DATA = gql`
-  mutation CreateHumidityEntry($payload: CreateHumidityInput!) {
-    createHumidityEntry(payload: $payload) {
-      measurementTime,
-      sensorId,
-      value
-    }
-  }
-`;
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -58,7 +39,7 @@ export class AppComponent {
 
   public sensorId: string = "FancySensor3000";
 
-  constructor(private apollo: Apollo) { }
+  constructor(private http: HttpClient) { }
 
   public onTempChange(ev: any) {
     this.temperature = ev.value;
@@ -73,30 +54,17 @@ export class AppComponent {
   public submit() {
     console.log("Test: ", this.humidity, this.temperature);
 
-    const tempReq = {
-      mutation: CREATE_TEMPERATURE_DATA,
-      variables: {
-        payload: {
-          sensorId: this.sensorId,
-          value: this.temperature,
-          measurementTime: new Date()
-        }
-      }
-    };
-
-    const humidityReq = {
-      mutation: CREATE_HUMIDITY_DATA,
-      variables: {
-        payload: {
-          sensorId: this.sensorId,
-          value: this.humidity,
-          measurementTime: new Date()
-        }
-      }
-    };
-
-    this.apollo.mutate(tempReq).pipe(
-      withLatestFrom(this.apollo.mutate(humidityReq)),
+    const httpUrl = environment.httpUrl;
+    this.http.post(httpUrl + "/temperature", {
+      sensorId: this.sensorId,
+      value: this.temperature,
+      measurementTime: new Date()
+    }).pipe(
+      withLatestFrom(this.http.post(httpUrl + "/humidity", {
+        sensorId: this.sensorId,
+        value: this.humidity,
+        measurementTime: new Date()
+      })),
       take(1)
     ).subscribe(res => console.log(res));
   }
