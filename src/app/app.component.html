@@ -1,7 +1,10 @@
 <div class="content-wrapper">
   <div class="content-box">
     <h1>Welcome Citizen</h1>
-    <h2>I am fake raspberry 3.14</h2>
+    <h2>I am fake raspberry 3.14
+      <br>
+      <span>But you can call me <input style="border: none; background: transparent; font-size: large;" type="text" [(ngModel)]="sensorId"/></span>
+    </h2>
     <h2>Use me {{smiley$ | async}}</h2>
     <div>
       <mat-icon class="material-icons-outlined">water_drop</mat-icon>
