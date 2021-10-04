@@ -3,19 +3,26 @@
     <h1>Welcome Citizen</h1>
     <h2>I am fake raspberry 3.14
       <br>
-      <span>But you can call me <input style="border: none; background: transparent; font-size: large;" type="text" [(ngModel)]="sensorId"/></span>
+      <span>But you can call me <input style="border: none; background: transparent; font-size: large;" type="text"
+          [(ngModel)]="sensorId" /></span>
     </h2>
     <h2>Use me {{smiley$ | async}}</h2>
     <div>
       <mat-icon class="material-icons-outlined">water_drop</mat-icon>
-      <mat-slider (input)="onHumidityChange($event)" [displayWith]="displayHumidity" [ngModel]="humidity" [max]="maxHumidity" thumbLabel aria-label="unit(s)"></mat-slider>
+      <mat-slider (valueChange)="onHumidityChange($event)" [displayWith]="displayHumidity" [ngModel]="humidity$ | async"
+        [max]="maxHumidity" thumbLabel aria-label="unit(s)"></mat-slider>
     </div>
     <span>{{humidityStatus$ | async}}</span>
     <div>
       <mat-icon class="material-icons-outlined">thermostat</mat-icon>
-      <mat-slider (input)="onTempChange($event)" [displayWith]="displayTemperature" [ngModel]="temperature" [min]="minTemperature" [max]="maxTemperature" thumbLabel aria-label="unit(s)"></mat-slider>
+      <mat-slider (valueChange)="onTempChange($event)" [displayWith]="displayTemperature" [ngModel]="temperature$ | async"
+        [min]="minTemperature" [max]="maxTemperature" thumbLabel aria-label="unit(s)"></mat-slider>
     </div>
     <span>{{temperatureStatus$ | async}}</span>
-    <button (click)="submit()" color="primary" mat-button>Let's party</button>
+    <br>
+    <h2>Settings:</h2>
+    <div>Read Interval: {{readIntervalStatus$ | async}}</div>
+    <div>Send Interval: {{sendIntervalStatus$ | async}}</div>
+    <!-- <button (click)="submit()" color="primary" mat-button>Let's party</button> -->
   </div>
 </div>
